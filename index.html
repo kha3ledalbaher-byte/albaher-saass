@@ -318,13 +318,30 @@
             text-align: right;
         }
 
+        /* لوحة التحكم مخفية افتراضياً وبشكل تام عن الزوار */
         .admin-panel {
+            display: none;
             max-width: 1240px;
             margin: 40px auto 0 auto;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px dashed var(--primary);
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid #8b5cf6;
             border-radius: 20px;
             padding: 22px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        /* زر سري مخفي في أسفل الصفحة لا يلاحظه الزبائن */
+        .secret-trigger {
+            opacity: 0.03;
+            font-size: 11px;
+            text-align: center;
+            margin-top: 40px;
+            cursor: pointer;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .secret-trigger:hover {
+            opacity: 1;
         }
 
         @media (max-width: 850px) {
@@ -495,23 +512,36 @@
         </div>
     </div>
 
-    <!-- لوحة إدارتك الخاصة (خالد) -->
-    <div class="admin-panel">
-        <div style="font-size: 15px; color: #f59e0b; font-weight: 800; margin-bottom: 12px;">👑 لوحة إدارتك الخاصة (خالد) - إدارة الأكواد الفعالة:</div>
+    <!-- لوحة إدارتك الخاصة المحمية (خالد) - مخفية تماماً عن الزوار -->
+    <div class="admin-panel" id="admin-panel">
+        <div style="font-size: 16px; color: #c084fc; font-weight: 800; margin-bottom: 12px; text-align: center;">👑 لوحة إدارتك الخاصة (خالد) - إدارة الأكواد الفعالة:</div>
         <div style="display: flex; gap: 10px;">
             <input type="text" id="newCodeInput" placeholder="اكتب كود جديد (مثال: KHALED-2026)">
-            <button style="background: #10b981; color: white; border: none; padding: 10px 22px; border-radius: 10px; cursor: pointer; font-weight: bold; white-space: nowrap;" onclick="generateNewCode()">إضافة الكود للنظام ➕</button>
+            <button style="background: #8b5cf6; color: white; border: none; padding: 10px 22px; border-radius: 10px; cursor: pointer; font-weight: bold; white-space: nowrap;" onclick="generateNewCode()">إضافة الكود للنظام ➕</button>
         </div>
-        <p id="activeCodesList" style="font-size: 13px; color: #94a3b8; margin-top: 10px;"></p>
+        <p id="activeCodesList" style="font-size: 13px; color: #94a3b8; margin-top: 12px; text-align: center;"></p>
     </div>
+
+    <!-- نقطة وصول مخفية تماماً للإدارة لا يلاحظها الزبائن -->
+    <div class="secret-trigger" onclick="unlockAdmin()">تسجيل دخول الإدارة</div>
 
     <script>
         let validCodes = JSON.parse(localStorage.getItem('saas_codes')) || [];
 
+        function unlockAdmin() {
+            let pass = prompt("أدخل كلمة المرور الخاصة بك يا خالد:");
+            if (pass === "khaled123") { // يمكنك تغيير كلمة المرور من هنا بكل سهولة
+                document.getElementById('admin-panel').style.display = "block";
+                alert("تم فتح لوحة التحكم الإدارية بنجاح!");
+            } else if (pass !== null) {
+                alert("كلمة المرور غير صحيحة!");
+            }
+        }
+
         function updateAdminCodesUI() {
             const el = document.getElementById('activeCodesList');
             if(el) {
-                el.innerHTML = "الأكواد الفعالة حالياً: <b>" + (validCodes.length > 0 ? validCodes.join(", ") : "لا يوجد أجهزة مفعلة - يلزم الدفع للتفعيل الآلي") + "</b>";
+                el.innerHTML = "الأكواد الفعالة حالياً: <b>" + (validCodes.length > 0 ? validCodes.join(", ") : "لا يوجد أجهزة مفعلة حالياً") + "</b>";
             }
         }
 
@@ -563,7 +593,7 @@
         function renderPreview() {
             try {
                 const bizType = document.getElementById('bizType').value;
-                const name = document.getElementById('bizName').value.trim() || "اسم النشاط التجارية";
+                const name = document.getElementById('bizName').value.trim() || "اسم النشاط التجاري";
                 const tagline = document.getElementById('bizTagline').value.trim() || "الشعار النصي أو الوصف";
                 const hours = document.getElementById('bizHours').value.trim() || "أوقات العمل غير محددة";
                 const color = document.getElementById('themeColor').value;
@@ -634,7 +664,7 @@
             if (inputCode && validCodes.includes(inputCode)) {
                 statusBox.className = "status-box status-success";
                 statusBox.style.display = "block";
-                statusBox.innerHTML = "✅ <b>تم تفعيل الاشتراك بنجاح!</b><br>يمكنك الآن اضغط زر تحميل الملف بالأسفل لاستلام صفحتك.";
+                statusBox.innerHTML = "✅ <b>تم تفعيل الاشتراك بنجاح!</b><br>يمكنك الآن النقر على زر تحميل الملف بالأسفل لاستلام صفحتك.";
             } else {
                 statusBox.className = "status-box status-error";
                 statusBox.style.display = "block";
