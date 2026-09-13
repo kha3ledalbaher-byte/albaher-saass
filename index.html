@@ -359,37 +359,34 @@
 
             <div class="form-group">
                 <label>اسم المحل أو النشاط التجاري:</label>
-                <input type="text" id="bizName" value="اسبر للتجارة" oninput="renderPreview()">
+                <input type="text" id="bizName" placeholder="مثال: متجر الأناقة" oninput="renderPreview()">
             </div>
             <div class="form-group">
                 <label>الشعار النصي (Slogan):</label>
-                <input type="text" id="bizTagline" value="بيع المواد الغذائية والتوصيل المنزلي السريع" oninput="renderPreview()">
+                <input type="text" id="bizTagline" placeholder="مثال: بيع المواد الغذائية والتوصيل المنزلي السريع" oninput="renderPreview()">
             </div>
             <div class="form-group">
                 <label>رقم الواتساب لاستلام الطلبات (مثال: 963938449829):</label>
-                <input type="text" id="bizPhone" value="963938449829" oninput="renderPreview()">
+                <input type="text" id="bizPhone" placeholder="9639XXXXXXXX" oninput="renderPreview()">
             </div>
 
             <div class="form-group" id="servicesGroup" style="display: none;">
                 <label>الخدمات المتاحة (افصل بينها بفواصل):</label>
-                <input type="text" id="bizServices" value="صيانة برادات, صيانة غسالات, فحص وتخزين" oninput="renderPreview()">
+                <input type="text" id="bizServices" placeholder="صيانة برادات, صيانة غسالات, فحص وتخزين" oninput="renderPreview()">
             </div>
 
             <div class="form-group" id="productsGroup">
                 <label>قائمة المنتجات والأسعار (اكتب كل منتج بسطر):</label>
-                <textarea id="bizProducts" rows="6" oninput="renderPreview()" placeholder="مثال:
+                <textarea id="bizProducts" rows="6" oninput="renderPreview()" placeholder="اكتب كل منتج بسطر مثلاً:
 رز الشعلان : 85000
-زيت عافية - 42000
-كيلو سكر 14000
-كرتونة بيض : 35000">رز الشعلان : 85000
 زيت عافية : 42000
 كيلو سكر : 14000
-كرتونة بيض : 35000</textarea>
+كرتونة بيض : 35000"></textarea>
             </div>
 
             <div class="form-group">
                 <label>أوقات العمل والتوصيل:</label>
-                <input type="text" id="bizHours" value="خدمة التوصيل متوفرة 24 ساعة" oninput="renderPreview()">
+                <input type="text" id="bizHours" placeholder="مثال: خدمة التوصيل متوفرة 24 ساعة" oninput="renderPreview()">
             </div>
             
             <div class="form-group">
@@ -410,7 +407,7 @@
             </div>
             
             <button class="btn btn-publish" onclick="verifyActivation()">تفعيل الكود وفتح التنزيل 🔑</button>
-            <button class="btn btn-pay" onclick="togglePaymentModal(true)">💳 دفع الاشتراك والحصول على الكود الآلي</button>
+            <button class="btn btn-pay" onclick="togglePaymentModal(true)">💳 دفع الاشتراك (10$) والحصول على الكود</button>
             <button class="btn btn-download" onclick="downloadClientPage()">تحميل ملف الصفحة المستقلة (HTML) 📥</button>
             
             <div id="statusMessage" class="status-box"></div>
@@ -420,9 +417,9 @@
         <div class="preview-wrapper">
             <div class="phone-mockup" id="previewCard">
                 <div class="phone-notch"></div>
-                <div class="preview-title" id="prevTitle">اسبر للتجارة</div>
-                <div class="preview-sub" id="prevSub">بيع المواد الغذائية والتوصيل المنزلي</div>
-                <div class="badge-hours" id="prevHours">🕒 خدمة التوصيل متوفرة 24 ساعة</div>
+                <div class="preview-title" id="prevTitle">اسم النشاط التجارى</div>
+                <div class="preview-sub" id="prevSub">الشعار النصي أو الوصف</div>
+                <div class="badge-hours" id="prevHours">🕒 أوقات العمل والتوصيل</div>
 
                 <div id="prevServiceView" style="display: none;">
                     <div class="form-group"><label>اسم العميل:</label><input type="text" placeholder="اسمك الكريم..." disabled></div>
@@ -449,8 +446,8 @@
     <!-- نافذة طرق الدفع والتفعيل الآلي Modal -->
     <div class="modal-overlay" id="paymentModal">
         <div class="modal-card">
-            <h3 style="color: #38bdf8; margin: 0 0 8px 0; font-size: 22px;">💳 طرق الدفع والتفعيل الآلي 100%</h3>
-            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">اختر طريقة الدفع المناسبة، وستحصل على الكود وتفعل تحميل صفحتك فوراً:</p>
+            <h3 style="color: #38bdf8; margin: 0 0 8px 0; font-size: 22px;">💳 طرق الدفع والتفعيل الآلي (10$ شهرياً)</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">رسوم تفعيل الاشتراك الشهري (10 دولار)، اختر طريقة الدفع المناسبة لتحصل على الكود وتفعل صفحتك فوراً:</p>
             
             <div class="payment-grid">
                 <!-- الشام كاش -->
@@ -465,8 +462,8 @@
 
                 <!-- SafePal USDT -->
                 <div class="payment-card">
-                    <h4 style="color: #10b981; margin: 0 0 4px 0; font-size: 15px;">SafePal / USDT (TRC20)</h4>
-                    <p style="font-size: 12px; color: #cbd5e1; margin: 0; font-weight: bold;">شبكة TRON</p>
+                    <h4 style="color: #10b981; margin: 0 0 4px 0; font-size: 15px;">SafePal / USDT (10$)</h4>
+                    <p style="font-size: 12px; color: #cbd5e1; margin: 0; font-weight: bold;">شبكة TRON (TRC20)</p>
                     <div class="qr-box">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=TNphKc3qmusVEHW4bw17LnHWGMAVxa1WdB" alt="SafePal QR">
                     </div>
@@ -522,7 +519,6 @@
             document.getElementById('paymentModal').style.display = show ? 'flex' : 'none';
         }
 
-        // محلل المنتجات والأسعار الذكي Flex Parser
         function parseProductsText(text) {
             if (!text) return [];
             const lines = text.trim().split('\n');
@@ -567,9 +563,9 @@
         function renderPreview() {
             try {
                 const bizType = document.getElementById('bizType').value;
-                const name = document.getElementById('bizName').value.trim() || "اسم النشاط";
-                const tagline = document.getElementById('bizTagline').value.trim() || "وصف النشاط التجاري";
-                const hours = document.getElementById('bizHours').value.trim() || "ساعات العمل غير محددة";
+                const name = document.getElementById('bizName').value.trim() || "اسم النشاط التجارية";
+                const tagline = document.getElementById('bizTagline').value.trim() || "الشعار النصي أو الوصف";
+                const hours = document.getElementById('bizHours').value.trim() || "أوقات العمل غير محددة";
                 const color = document.getElementById('themeColor').value;
 
                 document.getElementById('prevTitle').innerText = name;
@@ -642,7 +638,7 @@
             } else {
                 statusBox.className = "status-box status-error";
                 statusBox.style.display = "block";
-                statusBox.innerHTML = "❌ <b>الكود غير صحيح أو غير مفعل!</b><br>اضغط زر الدفع بالأسفل للحصول على كود تفعيل آلي مباشر.";
+                statusBox.innerHTML = "❌ <b>الكود غير صحيح أو غير مفعل!</b><br>اضغط زر الدفع بالأسفل للحصول على كود تفعيل آلي مباشر بقيمة 10$.";
             }
         }
 
@@ -672,7 +668,7 @@
                 let response = await fetch(`https://api.tronscan.org/api/transaction-info?hash=${tx}`);
                 let data = await response.json();
 
-                let autoCode = "USDT-" + tx.substring(0, 6).toUpperCase();
+                let autoCode = "USDT-10-" + tx.substring(0, 6).toUpperCase();
                 if (!validCodes.includes(autoCode)) {
                     validCodes.push(autoCode);
                     localStorage.setItem('saas_codes', JSON.stringify(validCodes));
@@ -684,7 +680,7 @@
                 verifyActivation();
                 alert("🎉 تم التأكد والتفعيل الآلي بنجاح!\nكود التفعيل الخاص بك: " + autoCode + "\nتم فتح التحميل فوراً.");
             } catch (err) {
-                let autoCode = "USDT-" + tx.substring(0, 6).toUpperCase();
+                let autoCode = "USDT-10-" + tx.substring(0, 6).toUpperCase();
                 if (!validCodes.includes(autoCode)) {
                     validCodes.push(autoCode);
                     localStorage.setItem('saas_codes', JSON.stringify(validCodes));
@@ -701,9 +697,9 @@
         }
 
         function requestShamCashCode() {
-            let refNum = prompt("يرجى إدخال رقم العملية الموجود بأسفل إشعار الشام كاش للتأكيد الفوري:");
+            let refNum = prompt("يرجى إدخال رقم العملية الموجود بأسفل إشعار الشام كاش لتأكيد دفع اشتراك الـ 10$ الفوري:");
             if (refNum && refNum.trim().length >= 3) {
-                let autoCode = "SHAM-" + refNum.trim();
+                let autoCode = "SHAM-10-" + refNum.trim();
                 if (!validCodes.includes(autoCode)) {
                     validCodes.push(autoCode);
                     localStorage.setItem('saas_codes', JSON.stringify(validCodes));
@@ -726,7 +722,7 @@
                 let statusBox = document.getElementById('statusMessage');
                 statusBox.className = "status-box status-error";
                 statusBox.style.display = "block";
-                statusBox.innerHTML = "⚠️ <b>يلزم وجود كود تفعيل معتمد للتنزيل!</b><br>إدفع عبر الشام كاش أو الـ USDT وسيتم التفعيل تلقائياً.";
+                statusBox.innerHTML = "⚠️ <b>يلزم وجود كود تفعيل معتمد (10$) للتنزيل!</b><br>إدفع عبر الشام كاش أو الـ USDT وسيتم التفعيل تلقائياً.";
                 return;
             }
 
@@ -984,7 +980,6 @@
             document.body.removeChild(link);
         }
 
-        // تشغيل التهيئة الفورية
         function initApp() {
             updateAdminCodesUI();
             renderPreview();
