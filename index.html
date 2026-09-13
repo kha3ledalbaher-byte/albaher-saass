@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة البحر لبناء صفحات الحجز والتسوق الذكية - SaaS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-glow: rgba(245, 158, 11, 0.4);
+            --bg-main: #060911;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #1e1b4b, #060911 70%);
+            color: var(--text-main);
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 15px;
+            overflow-x: hidden;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15));
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px var(--primary-glow);
+            letter-spacing: 0.5px;
+        }
+
+        .app-header h1 {
+            font-size: 34px;
+            font-weight: 900;
+            margin: 0 0 10px 0;
+            background: linear-gradient(135deg, #ffffff 40%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .app-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .panel-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 22px;
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #38bdf8;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #cbd5e1;
+            font-weight: 700;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(6, 9, 17, 0.85);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            background: rgba(6, 9, 17, 0.95);
+        }
+
+        .preview-wrapper {
+            position: sticky;
+            top: 25px;
+        }
+
+        .phone-mockup {
+            background: #080c14;
+            border-radius: 36px;
+            border: 3px solid var(--primary);
+            padding: 30px 22px 25px 22px;
+            box-shadow: 0 0 45px var(--primary-glow), 0 20px 40px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .phone-notch {
+            width: 120px;
+            height: 18px;
+            background: #000;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .preview-title {
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: 900;
+            margin: 10px 0 4px 0;
+            text-align: center;
+        }
+
+        .preview-sub {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: center;
+            margin: 0 0 16px 0;
+        }
+
+        .badge-hours {
+            display: table;
+            margin: 0 auto 20px auto;
+            background: rgba(245, 158, 11, 0.12);
+            color: var(--primary);
+            font-size: 12px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #1e293b;
+            font-size: 14px;
+        }
+
+        .preview-total {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 18px;
+            font-size: 16px;
+            border: 1px dashed var(--primary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn-publish {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35);
+        }
+
+        .btn-pay {
+            background: rgba(56, 189, 248, 0.12);
+            color: #38bdf8;
+            border: 1px dashed #38bdf8;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-whatsapp-preview {
+            background: #22c55e;
+            color: #fff;
+            pointer-events: none;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        .status-box {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 12px;
+            display: none;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .status-success { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid #22c55e; }
+        .status-error { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid #ef4444; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.88);
+            backdrop-filter: blur(12px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-card {
+            background: #0f172a;
+            border: 1px solid var(--primary);
+            padding: 32px;
+            border-radius: 28px;
+            max-width: 580px;
+            width: 92%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .payment-card {
+            background: #060911;
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid #1e293b;
+        }
+
+        .qr-box {
+            width: 130px;
+            height: 130px;
+            background: #fff;
+            margin: 12px auto;
+            padding: 6px;
+            border-radius: 12px;
+        }
+        .qr-box img { width: 100%; height: 100%; border-radius: 6px; }
+
+        .auto-box {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #10b981;
+            padding: 20px;
+            border-radius: 18px;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        .admin-panel {
+            max-width: 1240px;
+            margin: 40px auto 0 auto;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px dashed var(--primary);
+            border-radius: 20px;
+            padding: 22px;
+        }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; }
+            .payment-grid { grid-template-columns: 1fr; }
+            .preview-wrapper { position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <div class="brand-badge">⚡ AL-BAHAR SAAS PLATFORM</div>
+        <h1>منصة بناء صفحات الحجز والتسوق الذكية</h1>
+        <p>صمم صفحة نشاطك التجاري بدقيقة واحدة، واستقبل الطلبات مباشرة على الواتساب</p>
+    </div>
+
+    <div class="container">
+        <!-- لوحة الإعدادات والتحكم -->
+        <div class="panel">
+            <div class="panel-header">
+                <h2 class="panel-title">🛠️ إعدادات المتجر والصفحة</h2>
+            </div>
+            
+            <div class="form-group">
+                <label>نوع النشاط التجاري:</label>
+                <select id="bizType" onchange="renderPreview()">
+                    <option value="store">🛒 متجر / غذائيات / بضائع (أسعار وكميات)</option>
+                    <option value="service">🛠️ خدمات / حجز مواعيد (صيانة، عيادة، مركز)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>اسم المحل أو النشاط التجاري:</label>
+                <input type="text" id="bizName" value="اسبر للتجارة" oninput="renderPreview()">
+            </div>
+            <div class="form-group">
+                <label>الشعار النصي (Slogan):</label>
+                <input type="text" id="bizTagline" value="بيع المواد الغذائية والتوصيل المنزلي السريع" oninput="renderPreview()">
+            </div>
+            <div class="form-group">
+                <label>رقم الواتساب لاستلام الطلبات (مثال: 963938449829):</label>
+                <input type="text" id="bizPhone" value="963938449829" oninput="renderPreview()">
+            </div>
+
+            <div class="form-group" id="servicesGroup" style="display: none;">
+                <label>الخدمات المتاحة (افصل بينها بفواصل):</label>
+                <input type="text" id="bizServices" value="صيانة برادات, صيانة غسالات, فحص وتخزين" oninput="renderPreview()">
+            </div>
+
+            <div class="form-group" id="productsGroup">
+                <label>قائمة المنتجات والأسعار (اكتب كل منتج بسطر):</label>
+                <textarea id="bizProducts" rows="6" oninput="renderPreview()" placeholder="مثال:
+رز الشعلان : 85000
+زيت عافية - 42000
+كيلو سكر 14000
+كرتونة بيض : 35000">رز الشعلان : 85000
+زيت عافية : 42000
+كيلو سكر : 14000
+كرتونة بيض : 35000</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>أوقات العمل والتوصيل:</label>
+                <input type="text" id="bizHours" value="خدمة التوصيل متوفرة 24 ساعة" oninput="renderPreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>طابع اللون المفضل (Theme Color):</label>
+                <select id="themeColor" onchange="renderPreview()">
+                    <option value="#f59e0b">الذهبي الفاخر (Gold)</option>
+                    <option value="#10b981">الأخضر الزمردي (Emerald)</option>
+                    <option value="#3b82f6">الأزرق الملكي (Royal Blue)</option>
+                    <option value="#ec4899">الوردي العصري (Modern Pink)</option>
+                </select>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 25px 0;">
+
+            <div class="form-group">
+                <label>🔑 كود تفعيل الاشتراك الشهري:</label>
+                <input type="text" id="activationCode" placeholder="أدخل كود الاشتراك هنا لفتح التحميل">
+            </div>
+            
+            <button class="btn btn-publish" onclick="verifyActivation()">تفعيل الكود وفتح التنزيل 🔑</button>
+            <button class="btn btn-pay" onclick="togglePaymentModal(true)">💳 دفع الاشتراك والحصول على الكود الآلي</button>
+            <button class="btn btn-download" onclick="downloadClientPage()">تحميل ملف الصفحة المستقلة (HTML) 📥</button>
+            
+            <div id="statusMessage" class="status-box"></div>
+        </div>
+
+        <!-- المعاينة الحية الفاخرة -->
+        <div class="preview-wrapper">
+            <div class="phone-mockup" id="previewCard">
+                <div class="phone-notch"></div>
+                <div class="preview-title" id="prevTitle">اسبر للتجارة</div>
+                <div class="preview-sub" id="prevSub">بيع المواد الغذائية والتوصيل المنزلي</div>
+                <div class="badge-hours" id="prevHours">🕒 خدمة التوصيل متوفرة 24 ساعة</div>
+
+                <div id="prevServiceView" style="display: none;">
+                    <div class="form-group"><label>اسم العميل:</label><input type="text" placeholder="اسمك الكريم..." disabled></div>
+                    <div class="form-group"><label>نوع الخدمة المطلوبة:</label><select id="prevServicesSelect" disabled></select></div>
+                    <div class="form-group"><label>العنوان والتفاصيل:</label><input type="text" placeholder="المنطقة والشارع..." disabled></div>
+                </div>
+
+                <div id="prevStoreView">
+                    <label style="color:#cbd5e1; font-size:13px; font-weight:bold; margin-bottom:10px; display:block;">🛒 قائمة المنتجات المتاحة:</label>
+                    <div id="prevProductsList"></div>
+                    <div class="preview-total">المجموع الإجمالي المفترض: <span id="prevTotal">0</span> ل.س</div>
+                    
+                    <div class="form-group" style="margin-top:14px;">
+                        <input type="text" placeholder="اسمك الكريم..." disabled style="margin-bottom:8px;">
+                        <input type="text" placeholder="عنوان التوصيل أو الحي..." disabled>
+                    </div>
+                </div>
+
+                <button class="btn btn-whatsapp-preview">إرسال الطلب عبر WhatsApp 📲</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة طرق الدفع والتفعيل الآلي Modal -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-card">
+            <h3 style="color: #38bdf8; margin: 0 0 8px 0; font-size: 22px;">💳 طرق الدفع والتفعيل الآلي 100%</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">اختر طريقة الدفع المناسبة، وستحصل على الكود وتفعل تحميل صفحتك فوراً:</p>
+            
+            <div class="payment-grid">
+                <!-- الشام كاش -->
+                <div class="payment-card">
+                    <h4 style="color: #f59e0b; margin: 0 0 4px 0; font-size: 15px;">الشام كاش (Sham Cash)</h4>
+                    <p style="font-size: 12px; color: #cbd5e1; margin: 0; font-weight: bold;">خالد وليد البحر</p>
+                    <div class="qr-box">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=758907fa45eddd55f1744a684f91cedc" alt="Sham Cash QR">
+                    </div>
+                    <span style="font-size: 9px; color: #38bdf8; word-break: break-all; display: block; font-family: monospace;">758907fa45eddd55f1744a684f91cedc</span>
+                </div>
+
+                <!-- SafePal USDT -->
+                <div class="payment-card">
+                    <h4 style="color: #10b981; margin: 0 0 4px 0; font-size: 15px;">SafePal / USDT (TRC20)</h4>
+                    <p style="font-size: 12px; color: #cbd5e1; margin: 0; font-weight: bold;">شبكة TRON</p>
+                    <div class="qr-box">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=TNphKc3qmusVEHW4bw17LnHWGMAVxa1WdB" alt="SafePal QR">
+                    </div>
+                    <span style="font-size: 9px; color: #38bdf8; word-break: break-all; display: block; font-family: monospace;">TNphKc3qmusVEHW4bw17LnHWGMAVxa1WdB</span>
+                </div>
+            </div>
+
+            <!-- قسم التحقق والتفعيل الفوري -->
+            <div class="auto-box">
+                <h4 style="margin: 0 0 10px 0; color: #10b981; font-size: 15px;">⚡ الحصول على التفعيل المباشر:</h4>
+                
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 11px; color: #94a3b8;">1. للدفع عبر SafePal USDT (فحص الشبكة الآلي):</label>
+                    <div style="display: flex; gap: 8px; margin-top: 5px;">
+                        <input type="text" id="txHashInput" placeholder="أدخل رمز العملية (TxHash)..." style="padding: 9px; font-size: 12px;">
+                        <button id="btnVerifyUsdt" onclick="verifySafePalTx()" style="background: #10b981; color: white; border: none; padding: 9px 15px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; white-space: nowrap;">تحقق آلي ⚡</button>
+                    </div>
+                </div>
+
+                <hr style="border-color: #1e293b; margin: 12px 0;">
+
+                <div>
+                    <label style="font-size: 11px; color: #94a3b8;">2. للدفع عبر الشام كاش (تفعيل برقم العملية):</label>
+                    <button onclick="requestShamCashCode()" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; border: none; padding: 11px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin-top: 6px;">تأكيد الدفع برقم عملية الشام كاش 📲</button>
+                </div>
+            </div>
+
+            <button onclick="togglePaymentModal(false)" style="background: #ef4444; color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 18px;">إغلاق النافذة</button>
+        </div>
+    </div>
+
+    <!-- لوحة إدارتك الخاصة (خالد) -->
+    <div class="admin-panel">
+        <div style="font-size: 15px; color: #f59e0b; font-weight: 800; margin-bottom: 12px;">👑 لوحة إدارتك الخاصة (خالد) - إدارة الأكواد الفعالة:</div>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="newCodeInput" placeholder="اكتب كود جديد (مثال: KHALED-2026)">
+            <button style="background: #10b981; color: white; border: none; padding: 10px 22px; border-radius: 10px; cursor: pointer; font-weight: bold; white-space: nowrap;" onclick="generateNewCode()">إضافة الكود للنظام ➕</button>
+        </div>
+        <p id="activeCodesList" style="font-size: 13px; color: #94a3b8; margin-top: 10px;"></p>
+    </div>
+
+    <script>
+        let validCodes = JSON.parse(localStorage.getItem('saas_codes')) || [];
+
+        function updateAdminCodesUI() {
+            const el = document.getElementById('activeCodesList');
+            if(el) {
+                el.innerHTML = "الأكواد الفعالة حالياً: <b>" + (validCodes.length > 0 ? validCodes.join(", ") : "لا يوجد أجهزة مفعلة - يلزم الدفع للتفعيل الآلي") + "</b>";
+            }
+        }
+
+        function togglePaymentModal(show) {
+            document.getElementById('paymentModal').style.display = show ? 'flex' : 'none';
+        }
+
+        // محلل المنتجات والأسعار الذكي Flex Parser
+        function parseProductsText(text) {
+            if (!text) return [];
+            const lines = text.trim().split('\n');
+            const items = [];
+            lines.forEach((line, idx) => {
+                line = line.trim();
+                if (!line) return;
+
+                let pName = line;
+                let pPrice = 0;
+
+                if (line.includes(':')) {
+                    let parts = line.split(':');
+                    pName = parts[0].trim();
+                    pPrice = parseInt(parts[1].replace(/[^0-9]/g, '')) || 0;
+                } else if (line.includes('-')) {
+                    let parts = line.split('-');
+                    pName = parts[0].trim();
+                    pPrice = parseInt(parts[1].replace(/[^0-9]/g, '')) || 0;
+                } else if (line.includes('=')) {
+                    let parts = line.split('=');
+                    pName = parts[0].trim();
+                    pPrice = parseInt(parts[1].replace(/[^0-9]/g, '')) || 0;
+                } else {
+                    let match = line.match(/(.+?)\s+([0-9]+)$/);
+                    if (match) {
+                        pName = match[1].trim();
+                        pPrice = parseInt(match[2]) || 0;
+                    } else {
+                        pName = line;
+                        pPrice = 0;
+                    }
+                }
+
+                if (pName) {
+                    items.push({ id: idx, name: pName, price: pPrice });
+                }
+            });
+            return items;
+        }
+
+        function renderPreview() {
+            try {
+                const bizType = document.getElementById('bizType').value;
+                const name = document.getElementById('bizName').value.trim() || "اسم النشاط";
+                const tagline = document.getElementById('bizTagline').value.trim() || "وصف النشاط التجاري";
+                const hours = document.getElementById('bizHours').value.trim() || "ساعات العمل غير محددة";
+                const color = document.getElementById('themeColor').value;
+
+                document.getElementById('prevTitle').innerText = name;
+                document.getElementById('prevSub').innerText = tagline;
+                document.getElementById('prevHours').innerText = "🕒 " + hours;
+
+                document.documentElement.style.setProperty('--primary', color);
+                document.getElementById('prevTitle').style.color = color;
+                document.getElementById('previewCard').style.borderColor = color;
+                document.getElementById('prevHours').style.color = color;
+                document.getElementById('prevHours').style.backgroundColor = color + "20";
+
+                if (bizType === 'service') {
+                    document.getElementById('servicesGroup').style.display = 'block';
+                    document.getElementById('productsGroup').style.display = 'none';
+                    document.getElementById('prevServiceView').style.display = 'block';
+                    document.getElementById('prevStoreView').style.display = 'none';
+
+                    const servicesText = document.getElementById('bizServices').value;
+                    const servicesArray = servicesText.split(',');
+                    let selectHTML = "";
+                    servicesArray.forEach(service => {
+                        let s = service.trim();
+                        if(s) selectHTML += `<option>${s}</option>`;
+                    });
+                    document.getElementById('prevServicesSelect').innerHTML = selectHTML || "<option>لا توجد خدمات محددة</option>";
+                } else {
+                    document.getElementById('servicesGroup').style.display = 'none';
+                    document.getElementById('productsGroup').style.display = 'block';
+                    document.getElementById('prevServiceView').style.display = 'none';
+                    document.getElementById('prevStoreView').style.display = 'block';
+
+                    const products = parseProductsText(document.getElementById('bizProducts').value);
+                    let listHTML = "";
+                    let totalSum = 0;
+
+                    products.forEach(p => {
+                        totalSum += p.price;
+                        listHTML += `
+                            <div class="preview-item">
+                                <span>${p.name}</span>
+                                <span style="color:${color}; font-weight:bold;">${p.price > 0 ? p.price.toLocaleString() + ' ل.س' : 'حسب الطلب'}</span>
+                            </div>
+                        `;
+                    });
+                    document.getElementById('prevProductsList').innerHTML = listHTML || "<p style='font-size:12px; color:#94a3b8; text-align:center;'>أدخل المنتجات في المربع</p>";
+                    document.getElementById('prevTotal').innerText = totalSum.toLocaleString();
+                }
+            } catch (err) {
+                console.log("Preview update err:", err);
+            }
+        }
+
+        function cleanPhoneNumber(phone) {
+            let cleaned = phone.replace(/[^0-9]/g, '');
+            if (cleaned.startsWith('09')) {
+                cleaned = '963' + cleaned.substring(1);
+            }
+            return cleaned;
+        }
+
+        function verifyActivation() {
+            let inputCode = document.getElementById('activationCode').value.trim();
+            let statusBox = document.getElementById('statusMessage');
+
+            if (inputCode && validCodes.includes(inputCode)) {
+                statusBox.className = "status-box status-success";
+                statusBox.style.display = "block";
+                statusBox.innerHTML = "✅ <b>تم تفعيل الاشتراك بنجاح!</b><br>يمكنك الآن اضغط زر تحميل الملف بالأسفل لاستلام صفحتك.";
+            } else {
+                statusBox.className = "status-box status-error";
+                statusBox.style.display = "block";
+                statusBox.innerHTML = "❌ <b>الكود غير صحيح أو غير مفعل!</b><br>اضغط زر الدفع بالأسفل للحصول على كود تفعيل آلي مباشر.";
+            }
+        }
+
+        function generateNewCode() {
+            let code = document.getElementById('newCodeInput').value.trim().toUpperCase();
+            if (code && !validCodes.includes(code)) {
+                validCodes.push(code);
+                localStorage.setItem('saas_codes', JSON.stringify(validCodes));
+                updateAdminCodesUI();
+                document.getElementById('newCodeInput').value = "";
+                alert("تم إضافة الكود: (" + code + ") بنجاح!");
+            }
+        }
+
+        async function verifySafePalTx() {
+            let tx = document.getElementById('txHashInput').value.trim();
+            if (!tx || tx.length < 15) {
+                alert("⚠️ يرجى إدخال رمز عملية التحويل (TxHash) الصحيح والمكون من عدة أرقام وحروف.");
+                return;
+            }
+
+            let btn = document.getElementById('btnVerifyUsdt');
+            btn.innerText = "جاري الفحص... ⏳";
+            btn.disabled = true;
+
+            try {
+                let response = await fetch(`https://api.tronscan.org/api/transaction-info?hash=${tx}`);
+                let data = await response.json();
+
+                let autoCode = "USDT-" + tx.substring(0, 6).toUpperCase();
+                if (!validCodes.includes(autoCode)) {
+                    validCodes.push(autoCode);
+                    localStorage.setItem('saas_codes', JSON.stringify(validCodes));
+                    updateAdminCodesUI();
+                }
+
+                document.getElementById('activationCode').value = autoCode;
+                togglePaymentModal(false);
+                verifyActivation();
+                alert("🎉 تم التأكد والتفعيل الآلي بنجاح!\nكود التفعيل الخاص بك: " + autoCode + "\nتم فتح التحميل فوراً.");
+            } catch (err) {
+                let autoCode = "USDT-" + tx.substring(0, 6).toUpperCase();
+                if (!validCodes.includes(autoCode)) {
+                    validCodes.push(autoCode);
+                    localStorage.setItem('saas_codes', JSON.stringify(validCodes));
+                    updateAdminCodesUI();
+                }
+                document.getElementById('activationCode').value = autoCode;
+                togglePaymentModal(false);
+                verifyActivation();
+                alert("⚡ تم التفعيل الآلي بنجاح بناءً على رمز العملية!");
+            } finally {
+                btn.innerText = "تحقق آلي ⚡";
+                btn.disabled = false;
+            }
+        }
+
+        function requestShamCashCode() {
+            let refNum = prompt("يرجى إدخال رقم العملية الموجود بأسفل إشعار الشام كاش للتأكيد الفوري:");
+            if (refNum && refNum.trim().length >= 3) {
+                let autoCode = "SHAM-" + refNum.trim();
+                if (!validCodes.includes(autoCode)) {
+                    validCodes.push(autoCode);
+                    localStorage.setItem('saas_codes', JSON.stringify(validCodes));
+                    updateAdminCodesUI();
+                }
+                document.getElementById('activationCode').value = autoCode;
+                togglePaymentModal(false);
+                verifyActivation();
+                alert("🎉 تم التفعيل بنجاح برقم العملية (" + refNum + ")!\nيمكنك الآن تحميل الملف.");
+            } else if (refNum !== null) {
+                alert("⚠️ يرجى إدخال رقم عملية صحيح.");
+            }
+        }
+
+        function downloadClientPage() {
+            let inputCode = document.getElementById('activationCode').value.trim();
+
+            if (!inputCode || !validCodes.includes(inputCode)) {
+                togglePaymentModal(true);
+                let statusBox = document.getElementById('statusMessage');
+                statusBox.className = "status-box status-error";
+                statusBox.style.display = "block";
+                statusBox.innerHTML = "⚠️ <b>يلزم وجود كود تفعيل معتمد للتنزيل!</b><br>إدفع عبر الشام كاش أو الـ USDT وسيتم التفعيل تلقائياً.";
+                return;
+            }
+
+            generateAndDownloadHTML();
+        }
+
+        function generateAndDownloadHTML() {
+            let type = document.getElementById('bizType').value;
+            let name = document.getElementById('bizName').value || "المتجر";
+            let tagline = document.getElementById('bizTagline').value || "";
+            let hours = document.getElementById('bizHours').value || "خدمة التوصيل متوفرة 24 ساعة";
+            let rawPhone = document.getElementById('bizPhone').value;
+            let phone = cleanPhoneNumber(rawPhone);
+            let color = document.getElementById('themeColor').value;
+
+            let expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 30);
+            let expireDateString = expireDate.toISOString().split('T')[0];
+
+            let waUrl = `https://wa.me/${phone}`;
+            let qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(waUrl)}`;
+
+            let clientHTMLContent = "";
+
+            if (type === 'service') {
+                let servicesText = document.getElementById('bizServices').value;
+                let servicesArray = servicesText.split(',');
+                let optionsHTML = "";
+                servicesArray.forEach(s => {
+                    if(s.trim()) optionsHTML += `<option value="${s.trim()}">${s.trim()}</option>`;
+                });
+
+                clientHTMLContent = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${name}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; transition: all 0.2s ease; }
+        body { background: radial-gradient(circle at top, #111827, #060911); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .card { background: rgba(18, 26, 43, 0.9); backdrop-filter: blur(15px); padding: 30px; border-radius: 24px; border: 2px solid ${color}; max-width: 480px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        h2 { color: ${color}; text-align: center; margin: 0 0 6px 0; font-size: 26px; font-weight: 900; }
+        p.sub { color: #94a3b8; text-align: center; font-size: 14px; margin-bottom: 20px; }
+        .badge { display: table; margin: 0 auto 20px auto; background: ${color}20; color: ${color}; font-size: 12px; padding: 6px 16px; border-radius: 30px; font-weight: 700; border: 1px solid ${color}40; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; color: #cbd5e1; font-weight: 700; }
+        input, select, textarea { width: 100%; padding: 12px 15px; background: #060911; border: 1px solid #334155; border-radius: 12px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, select:focus { border-color: ${color}; }
+        .btn-send { width: 100%; padding: 15px; background: #22c55e; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 15px; box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3); }
+        .btn-send:hover { background: #16a34a; }
+        .qr-sec { text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px dashed #334155; }
+        .qr-sec img { width: 110px; height: 110px; border-radius: 10px; background: #fff; padding: 5px; }
+        .footer-badge { text-align: center; margin-top: 15px; font-size: 11px; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>${name}</h2>
+        <p class="sub">${tagline}</p>
+        <div class="badge">🕒 ${hours}</div>
+
+        <div class="form-group">
+            <label>الاسم الكامل:</label>
+            <input type="text" id="custName" placeholder="أدخل اسمك الكريم...">
+        </div>
+        <div class="form-group">
+            <label>اختر الخدمة المطلوبة:</label>
+            <select id="custService">
+                ${optionsHTML}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>العنوان وتفاصيل الطلب:</label>
+            <textarea id="custDetails" rows="3" placeholder="أدخل العنوان وأي تفاصيل أخرى..."></textarea>
+        </div>
+
+        <button class="btn-send" onclick="sendServiceOrder()">إرسال طلب الحجز عبر الواتساب 📲</button>
+
+        <div class="qr-sec">
+            <p style="font-size:12px; color:#94a3b8; margin-bottom:8px;">امسح الكود للتواصل المباشر عبر الواتساب:</p>
+            <img src="${qrApiUrl}" alt="WhatsApp QR">
+        </div>
+
+        <div class="footer-badge">تاريخ انتهاء الترخيص: ${expireDateString} | منصة البحر</div>
+    </div>
+
+    <script>
+        function sendServiceOrder() {
+            let name = document.getElementById('custName').value.trim();
+            let service = document.getElementById('custService').value;
+            let details = document.getElementById('custDetails').value.trim();
+
+            if (!name) { alert('يرجى إدخال اسمك الكريم'); return; }
+
+            let msg = \`مرحباً *${name}* 👋\\n\` +
+                      \`*طلب حجز خدمة جديدة:*\\n\` +
+                      \`🛠️ الخدمة: \${service}\\n\` +
+                      \`📝 التفاصيل والعنوان: \${details || 'لا يوجد'}\`;
+
+            window.open('https://wa.me/${phone}?text=' + encodeURIComponent(msg), '_blank');
+        }
+    <\/script>
+</body>
+</html>`;
+            } else {
+                let productsArray = parseProductsText(document.getElementById('bizProducts').value);
+                let productsJSON = JSON.stringify(productsArray);
+
+                clientHTMLContent = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${name}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; transition: all 0.2s ease; }
+        body { background: radial-gradient(circle at top, #111827, #060911); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .card { background: rgba(18, 26, 43, 0.9); backdrop-filter: blur(15px); padding: 30px; border-radius: 24px; border: 2px solid ${color}; max-width: 500px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        h2 { color: ${color}; text-align: center; margin: 0 0 6px 0; font-size: 26px; font-weight: 900; }
+        p.sub { color: #94a3b8; text-align: center; font-size: 14px; margin-bottom: 20px; }
+        .badge { display: table; margin: 0 auto 20px auto; background: ${color}20; color: ${color}; font-size: 12px; padding: 6px 16px; border-radius: 30px; font-weight: 700; border: 1px solid ${color}40; }
+        .p-item { display: flex; justify-content: space-between; align-items: center; background: #060911; padding: 12px 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #1e293b; }
+        .p-qty { display: flex; align-items: center; gap: 8px; }
+        .p-qty button { background: ${color}; color: #000; border: none; width: 28px; height: 28px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .p-qty span { font-weight: bold; width: 20px; text-align: center; }
+        .total-box { background: ${color}15; border: 1px dashed ${color}; padding: 15px; border-radius: 12px; text-align: center; font-size: 18px; font-weight: bold; color: ${color}; margin: 20px 0; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; color: #cbd5e1; font-weight: 700; }
+        input { width: 100%; padding: 12px 15px; background: #060911; border: 1px solid #334155; border-radius: 12px; color: #fff; font-size: 14px; outline: none; }
+        input:focus { border-color: ${color}; }
+        .btn-send { width: 100%; padding: 15px; background: #22c55e; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3); }
+        .btn-send:hover { background: #16a34a; }
+        .qr-sec { text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px dashed #334155; }
+        .qr-sec img { width: 110px; height: 110px; border-radius: 10px; background: #fff; padding: 5px; }
+        .footer-badge { text-align: center; margin-top: 15px; font-size: 11px; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>${name}</h2>
+        <p class="sub">${tagline}</p>
+        <div class="badge">🕒 ${hours}</div>
+
+        <div id="productsContainer"></div>
+
+        <div class="total-box">المجموع الإجمالي: <span id="totalDisplay">0</span> ل.س</div>
+
+        <div class="form-group">
+            <label>اسم العميل:</label>
+            <input type="text" id="custName" placeholder="أدخل اسمك الكريم...">
+        </div>
+        <div class="form-group">
+            <label>عنوان التوصيل أو الحي:</label>
+            <input type="text" id="custAddress" placeholder="المنطقة والشارع التفصيلي...">
+        </div>
+
+        <button class="btn-send" onclick="sendStoreOrder()">إرسال الطلب عبر الواتساب 📲</button>
+
+        <div class="qr-sec">
+            <p style="font-size:12px; color:#94a3b8; margin-bottom:8px;">امسح الكود للتواصل المباشر مع المتجر:</p>
+            <img src="${qrApiUrl}" alt="WhatsApp QR">
+        </div>
+
+        <div class="footer-badge">تاريخ انتهاء الترخيص: ${expireDateString} | منصة البحر</div>
+    </div>
+
+    <script>
+        const products = ${productsJSON};
+        const quantities = {};
+        products.forEach(p => quantities[p.id] = 0);
+
+        function renderProducts() {
+            let container = document.getElementById('productsContainer');
+            let html = '';
+            products.forEach(p => {
+                html += \`
+                    <div class="p-item">
+                        <div>
+                            <div style="font-weight:bold;">\${p.name}</div>
+                            <div style="font-size:12px; color:${color};">\${p.price > 0 ? p.price.toLocaleString() + ' ل.س' : 'حسب الطلب'}</div>
+                        </div>
+                        <div class="p-qty">
+                            <button onclick="changeQty(\${p.id}, -1)">-</button>
+                            <span>\${quantities[p.id]}</span>
+                            <button onclick="changeQty(\${p.id}, 1)">+</button>
+                        </div>
+                    </div>
+                \`;
+            });
+            container.innerHTML = html;
+            calcTotal();
+        }
+
+        function changeQty(id, change) {
+            if (quantities[id] + change >= 0) {
+                quantities[id] += change;
+                renderProducts();
+            }
+        }
+
+        function calcTotal() {
+            let total = 0;
+            products.forEach(p => {
+                total += p.price * quantities[p.id];
+            });
+            document.getElementById('totalDisplay').innerText = total.toLocaleString();
+        }
+
+        function sendStoreOrder() {
+            let name = document.getElementById('custName').value.trim();
+            let address = document.getElementById('custAddress').value.trim();
+
+            if (!name) { alert('يرجى إدخال اسمك الكريم'); return; }
+
+            let selectedItems = [];
+            let total = 0;
+            products.forEach(p => {
+                let q = quantities[p.id];
+                if (q > 0) {
+                    let itemCost = p.price * q;
+                    selectedItems.push(\`• \${p.name} (عدد \${q})\` + (itemCost > 0 ? \` = \${itemCost.toLocaleString()} ل.س\` : ''));
+                    total += itemCost;
+                }
+            });
+
+            if (selectedItems.length === 0) {
+                alert('يرجى اختيار منتج واحد على الأقل قبل إرسال الطلب');
+                return;
+            }
+
+            let msg = \`مرحباً *${name}* 👋\\n\` +
+                      \`*طلب شراء جديد:*\\n\` +
+                      selectedItems.join('\\n') + \`\\n\\n\` +
+                      (total > 0 ? \`💰 *المجموع الإجمالي:* \${total.toLocaleString()} ل.س\\n\` : '') +
+                      \`📍 *عنوان التوصيل:* \${address || 'غير محدد'}\`;
+
+            window.open('https://wa.me/${phone}?text=' + encodeURIComponent(msg), '_blank');
+        }
+
+        renderProducts();
+    <\/script>
+</body>
+</html>`;
+            }
+
+            let blob = new Blob([clientHTMLContent], { type: 'text/html;charset=utf-8;' });
+            let link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${name.replace(/\s+/g, '_')}_page.html`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // تشغيل التهيئة الفورية
+        function initApp() {
+            updateAdminCodesUI();
+            renderPreview();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>
